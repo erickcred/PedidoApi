@@ -1,9 +1,9 @@
-namespace Pedido.Domain.Entities;
+namespace Pedido.Infra.Request;
 
-public class Telefone : EntidadeBase
+public class TelefoneRequest
 {
+  public int Id { get; set; }
   public string Numero { get; set; }
   public string Descricao { get; set; }
   public int UsuarioId { get; set; }
-  public Usuario Usuario { get; set; }
 }

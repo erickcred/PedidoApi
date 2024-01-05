@@ -12,5 +12,7 @@ public class Endereco : EntidadeBase
   public string Gia { get; set; }
   public string ddd { get; set; }
   public string Observacao { get; set; }
+  public int UsuarioId { get; set; }
+  public Usuario Usuario { get; set; }
 
 }
