@@ -8,7 +8,7 @@ namespace Pedido.Infra.Implementations;
 
 public class ClienteRepository : IClienteRepository
 {
-  private PedidoContext _context;
+  private readonly PedidoContext _context;
 
   public ClienteRepository(PedidoContext context)
   {

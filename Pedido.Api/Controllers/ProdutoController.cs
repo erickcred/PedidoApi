@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Pedido.Domain.Entities;
 using Pedido.Infra.Interfaces;
+using Pedido.Infra.Request;
 
 namespace Pedido.Api.Controllers;
 
@@ -34,14 +35,14 @@ public class ProdutoController : ControllerBase
   }
 
   [HttpPost]
-  public async Task<IActionResult> Cria([FromBody] Produto model)
+  public async Task<IActionResult> Cria([FromBody] ProdutoRequest model)
   {
     var produto = await _produtoRepo.Criar(model);
     return Ok(produto);
   }
 
   [HttpPut]
-  public async Task<IActionResult> Atualizar([FromBody] Produto model)
+  public async Task<IActionResult> Atualizar([FromBody] ProdutoRequest model)
   {
     var produto = await _produtoRepo.Atualizar(model);
     return Ok(produto);

@@ -40,5 +40,10 @@ public class ProdutoMap : IEntityTypeConfiguration<Produto>
     produto.Property(x => x.Ativo)
       .HasColumnName("Ativo")
       .HasColumnType("Tinyint");
+
+    produto.Property(x => x.PedidoId)
+      .HasColumnName("PedidoId")
+      .HasColumnType("Int")
+      .HasDefaultValue(0);
   }
 }

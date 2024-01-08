@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pedido.Infra.Contexts;
 
@@ -10,9 +11,11 @@ using Pedido.Infra.Contexts;
 namespace Pedido.Infra.Migrations
 {
     [DbContext(typeof(PedidoContext))]
-    partial class PedidoContextModelSnapshot : ModelSnapshot
+    [Migration("20240107132018_PedidoProduto1")]
+    partial class PedidoProduto1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

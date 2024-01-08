@@ -37,7 +37,7 @@ namespace Pedido.Infra.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Telefone = table.Column<string>(type: "Varchar(25)", nullable: false)
+                    Numero = table.Column<string>(type: "Varchar(25)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Descricao = table.Column<string>(type: "Varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),

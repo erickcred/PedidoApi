@@ -24,6 +24,7 @@ builder.Services.AddDbContext<PedidoContext>(options =>
 builder.Services.AddTransient<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddTransient<IClienteRepository, ClienteRepository>();
 builder.Services.AddTransient<ITelefoneRepository, TelefoneRepository>();
+builder.Services.AddTransient<IPedidoRepository, PedidoRepository>();
 
 var app = builder.Build();
 

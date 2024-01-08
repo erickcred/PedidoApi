@@ -8,7 +8,7 @@ namespace Pedido.Infra.Implementations;
 
 public class TelefoneRepository : ITelefoneRepository
 {
-  private PedidoContext _context;
+  private readonly PedidoContext _context;
 
   public TelefoneRepository(PedidoContext context)
   {

@@ -2,12 +2,13 @@ using Microsoft.EntityFrameworkCore;
 using Pedido.Domain.Entities;
 using Pedido.Infra.Contexts;
 using Pedido.Infra.Interfaces;
+using Pedido.Infra.Request;
 
 namespace Pedido.Infra.Implementations;
 
 public class ProdutoRepository : IProdutoRepository
 {
-  private PedidoContext _context;
+  private readonly PedidoContext _context;
 
   public ProdutoRepository(PedidoContext context)
   {
@@ -41,7 +42,34 @@ public class ProdutoRepository : IProdutoRepository
     }
   }
 
-  public async Task<Produto> Atualizar(Produto model)
+  public async Task<Produto> Criar(ProdutoRequest model)
+  {
+    try
+    {
+      var pedido = _context.Pedidos.FirstOrDefault(x => x.Id == model.PedidoId);
+      Produto produto;
+        produto = new Produto
+        {
+          Nome = model.Nome,
+          Quantidade = model.Quantidade,
+          Cor = model.Cor,
+          Descricao = model.Descricao,
+          ValorUni = model.ValorUni,
+          PedidoId = model.PedidoId,
+          Pedido = pedido,
+          Ativo = true
+        };
+
+    await _context.Produtos.AddAsync(produto);
+    await _context.SaveChangesAsync();
+    return produto;
+    } catch (Exception ex)
+    {
+      throw new Exception(ex.Message);
+    }
+  }
+
+  public async Task<Produto> Atualizar(ProdutoRequest model)
   {
     try
     {
@@ -54,36 +82,13 @@ public class ProdutoRepository : IProdutoRepository
         produto.Cor = model.Cor;
         produto.Descricao = model.Descricao;
         produto.ValorUni = model.ValorUni;
+        produto.PedidoId = model.PedidoId;
         produto.Ativo = model.Ativo;
 
         _context.Produtos.Update(produto);
         await _context.SaveChangesAsync();
       }
       return null;
-    } catch (Exception ex)
-    {
-      throw new Exception(ex.Message);
-    }
-  }
-
-  public async Task<Produto> Criar(Produto model)
-  {
-    try
-    {
-      var produto = new Produto
-      {
-        Nome = model.Nome,
-        Quantidade = model.Quantidade,
-        Cor = model.Cor,
-        Descricao = model.Descricao,
-        ValorUni = model.ValorUni,
-        Ativo = true
-      };
-
-      await _context.Produtos.AddAsync(produto);
-      await _context.SaveChangesAsync();
-
-      return produto;
     } catch (Exception ex)
     {
       throw new Exception(ex.Message);

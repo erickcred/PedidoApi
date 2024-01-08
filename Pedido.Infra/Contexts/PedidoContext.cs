@@ -11,6 +11,9 @@ public class PedidoContext : DbContext
   public DbSet<Produto> Produtos { get; set; }
   public DbSet<Usuario> Clientes { get; set; }
   public DbSet<Telefone> Telefones { get; set; }
+  public DbSet<PedidoE> Pedidos { get; set; }
+
+  
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
@@ -18,5 +21,6 @@ public class PedidoContext : DbContext
     modelBuilder.ApplyConfiguration(new ProdutoMap());
     modelBuilder.ApplyConfiguration(new ClienteMap());
     modelBuilder.ApplyConfiguration(new TelefoneMap());
+    modelBuilder.ApplyConfiguration(new PedidoMap());
   }
 }
