@@ -19,6 +19,7 @@ public class ProdutoRepository : IProdutoRepository
   {
     return await _context.Produtos
           .AsNoTracking()
+          .Include(x => x.Pedido)
           .Where(x => x.Ativo)
           .ToListAsync();
   }
@@ -29,6 +30,7 @@ public class ProdutoRepository : IProdutoRepository
     {
       var produto = await _context.Produtos
             .AsNoTracking()
+            .Include(x => x.Pedido)
             .Where(x => x.Ativo)
             .FirstOrDefaultAsync(x => x.Id == id);
       if (produto != null)
@@ -63,6 +65,35 @@ public class ProdutoRepository : IProdutoRepository
     await _context.Produtos.AddAsync(produto);
     await _context.SaveChangesAsync();
     return produto;
+    } catch (Exception ex)
+    {
+      throw new Exception(ex.Message);
+    }
+  }
+
+  public async Task<List<Produto>> Criar(List<ProdutoRequest> model)
+  {
+    var produtos = new List<Produto>();
+    try
+    {
+      var pedido = _context.Pedidos.FirstOrDefault(x => x.Id == model[0].PedidoId);
+
+      model.ForEach(item => {
+        produtos.Add(new Produto{
+          Nome = item.Nome,
+          Quantidade = item.Quantidade,
+          Cor = item.Cor,
+          Descricao = item.Descricao,
+          ValorUni = item.ValorUni,
+          PedidoId = item.PedidoId,
+          Pedido = pedido,
+          Ativo = true
+        });
+      });
+
+    await _context.Produtos.AddRangeAsync(produtos);
+    await _context.SaveChangesAsync();
+    return produtos;
     } catch (Exception ex)
     {
       throw new Exception(ex.Message);

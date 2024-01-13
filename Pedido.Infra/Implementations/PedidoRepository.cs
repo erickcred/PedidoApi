@@ -18,6 +18,8 @@ public class PedidoRepository : IPedidoRepository
   {
     return await _context.Pedidos
         .AsNoTracking()
+        .Include(x => x.Produtos)
+        .Include(x => x.Cliente)
         .ToListAsync();
   }
 
@@ -28,6 +30,7 @@ public class PedidoRepository : IPedidoRepository
       var pedido = await _context.Pedidos
             .AsNoTracking()
             .Include(x => x.Produtos)
+            .Include(x => x.Cliente)
             .FirstOrDefaultAsync(x => x.Id == id);
       if (pedido != null)
       {

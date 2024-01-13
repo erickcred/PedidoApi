@@ -41,6 +41,13 @@ public class ProdutoController : ControllerBase
     return Ok(produto);
   }
 
+  [HttpPost("criarLista")]
+  public async Task<IActionResult> CriaLista([FromBody] List<ProdutoRequest> model)
+  {
+    var produtos = await _produtoRepo.Criar(model);
+    return Ok(produtos);
+  }
+
   [HttpPut]
   public async Task<IActionResult> Atualizar([FromBody] ProdutoRequest model)
   {
